@@ -282,11 +282,12 @@ namespace DSAJSONEditor
         }
     }
 
-    //jasses for (de)serializing the json
+    //classes for (de)serializing the json
     public class Character
     {
         public String name;
         public UInt64 owner;
+        
         public Attribute attribute_ch;
         public Attribute attribute_ff;
         public Attribute attribute_ge;
@@ -294,7 +295,9 @@ namespace DSAJSONEditor
         public Attribute attribute_kk;
         public Attribute attribute_kl;
         public Attribute attribute_ko;
-        public Attribute attribute_mu; public Talent talent_alchimie { get; set; }
+        public Attribute attribute_mu; 
+        
+        public Talent talent_alchimie { get; set; }
         public Talent talent_bekehren_ueberzeugen { get; set; }
         public Talent talent_betoeren { get; set; }
         public Talent talent_boote { get; set; }
@@ -353,6 +356,8 @@ namespace DSAJSONEditor
         public Talent talent_wildnisleben { get; set; }
         public Talent talent_wilenskraft { get; set; }
         public Talent talent_zechen { get; set; }
+        
+        //constructor for empty character
         public Character()
         {
             name = "";
@@ -428,6 +433,7 @@ namespace DSAJSONEditor
             talent_zechen = new Talent("KL", "KO", "KK", "Zechen", 0);
         }
     }
+    
     public class Attribute
     {
         public String name { get; set; }
@@ -438,6 +444,7 @@ namespace DSAJSONEditor
             value = in_value;
         }
     }
+    
     public class Talent
     {
         public String attribute_1_id;
