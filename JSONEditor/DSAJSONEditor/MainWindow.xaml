@@ -1,0 +1,101 @@
+﻿<Window x:Class="DSAJSONEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DSAJSONEditor"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="600"
+        ResizeMode="NoResize">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New" Click="NewCharacter_Click"/>
+                <MenuItem Header="_Open" Click="LoadJson_Click"/>
+                <MenuItem Header="_Save" Click="SaveJson_Click"/>
+                <Separator />
+                <MenuItem Header="_Exit" Click="ExitWindow_Click"/>
+            </MenuItem>
+        </Menu>
+        <Grid>
+            <TabControl SelectionChanged="TabControl_SelectionChanged">
+                <TabItem Header="Character &amp; Attribute">
+                    <Grid x:Name="CharacterTab">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBox x:Name="Value_Name" Grid.Row="1" Grid.Column="2"/>
+                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Value_CH" Grid.Row="3" Grid.Column="2"/>
+                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Value_FF" Grid.Row="4" Grid.Column="2"/>
+                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Value_GE" Grid.Row="5" Grid.Column="2"/>
+                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Value_IN" Grid.Row="6" Grid.Column="2"/>
+                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Value_KK" Grid.Row="7" Grid.Column="2"/>
+                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Value_KL" Grid.Row="8" Grid.Column="2"/>
+                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Value_KO" Grid.Row="9" Grid.Column="2"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Talente - 1" Height="22" VerticalAlignment="Bottom">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <DataGrid Grid.Column="0" x:Name="Talente1_1" AutoGenerateColumns="False" DataContext="{Binding Source=list}" >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding name}" Header="Fertigkeitenname" IsReadOnly="True" Width="4*" CanUserResize="False"/>
+                                <DataGridTextColumn Binding="{Binding value}" Header="Wert" IsReadOnly="False" Width="*"  CanUserResize="False" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <DataGrid Grid.Column="1" x:Name="Talente1_2" AutoGenerateColumns="False" DataContext="{Binding Source=list}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding name}" Header="Fertigkeitenname" IsReadOnly="True" Width="4*" CanUserResize="False"/>
+                                <DataGridTextColumn Binding="{Binding value}" Header="Wert" IsReadOnly="False" Width="*" CanUserResize="False"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Talente - 2" Height="22" VerticalAlignment="Bottom">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <DataGrid Grid.Column="0" x:Name="Talente2_1" AutoGenerateColumns="False" DataContext="{Binding Source=list}" >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding name}" Header="Fertigkeitenname" IsReadOnly="True" Width="4*" CanUserResize="False"/>
+                                <DataGridTextColumn Binding="{Binding value}" Header="Wert" IsReadOnly="False" Width="*"  CanUserResize="False"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <DataGrid Grid.Column="1" x:Name="Talente2_2" AutoGenerateColumns="False" DataContext="{Binding Source=list}" >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding name}" Header="Fertigkeitenname" IsReadOnly="True" Width="4*" CanUserResize="False"/>
+                                <DataGridTextColumn Binding="{Binding value}" Header="Wert" IsReadOnly="False" Width="*" CanUserResize="False"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Kampf" Height="22" VerticalAlignment="Bottom" IsEnabled="False"/>
+
+            </TabControl>
+        </Grid>
+
+    </DockPanel>
+</Window>

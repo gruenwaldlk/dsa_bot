@@ -1,0 +1,15 @@
+C:\Users\cafet\source\repos\DSAJSONEditor\DSAJSONEditor\bin\Release\DSAJSONEditor.exe.config
+C:\Users\cafet\source\repos\DSAJSONEditor\DSAJSONEditor\bin\Release\DSAJSONEditor.exe
+C:\Users\cafet\source\repos\DSAJSONEditor\DSAJSONEditor\bin\Release\DSAJSONEditor.pdb
+C:\Users\cafet\source\repos\DSAJSONEditor\DSAJSONEditor\obj\Release\MainWindow.g.cs
+C:\Users\cafet\source\repos\DSAJSONEditor\DSAJSONEditor\obj\Release\App.g.cs
+C:\Users\cafet\source\repos\DSAJSONEditor\DSAJSONEditor\obj\Release\DSAJSONEditor_MarkupCompile.cache
+C:\Users\cafet\source\repos\DSAJSONEditor\DSAJSONEditor\obj\Release\DSAJSONEditor_MarkupCompile.lref
+C:\Users\cafet\source\repos\DSAJSONEditor\DSAJSONEditor\obj\Release\MainWindow.baml
+C:\Users\cafet\source\repos\DSAJSONEditor\DSAJSONEditor\obj\Release\DSAJSONEditor.g.resources
+C:\Users\cafet\source\repos\DSAJSONEditor\DSAJSONEditor\obj\Release\DSAJSONEditor.Properties.Resources.resources
+C:\Users\cafet\source\repos\DSAJSONEditor\DSAJSONEditor\obj\Release\DSAJSONEditor.csproj.GenerateResource.cache
+C:\Users\cafet\source\repos\DSAJSONEditor\DSAJSONEditor\obj\Release\DSAJSONEditor.csproj.CoreCompileInputs.cache
+C:\Users\cafet\source\repos\DSAJSONEditor\DSAJSONEditor\obj\Release\DSAJSONEditor.csproj.Fody.CopyLocal.cache
+C:\Users\cafet\source\repos\DSAJSONEditor\DSAJSONEditor\obj\Release\DSAJSONEditor.exe
+C:\Users\cafet\source\repos\DSAJSONEditor\DSAJSONEditor\obj\Release\DSAJSONEditor.pdb
