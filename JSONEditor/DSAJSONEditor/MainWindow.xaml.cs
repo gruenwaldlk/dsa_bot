@@ -16,7 +16,7 @@ namespace DSAJSONEditor
     public partial class MainWindow : Window
     {
         private Character character;
-        List<Talent> talente_list1_1, talente_list1_2, talente_list2_1, talente_list2_2;
+        List<Talent> talente_list1_1, talente_list1_2, talente_list1_3, talente_list2_1, talente_list2_2;
         public MainWindow()
         {
             character = new Character();
@@ -191,79 +191,87 @@ namespace DSAJSONEditor
 
             // populate talent pages
             talente_list1_1 = new List<Talent>();
-            talente_list2_1 = new List<Talent>();
             talente_list1_2 = new List<Talent>();
+            talente_list1_3 = new List<Talent>();
+            talente_list2_1 = new List<Talent>();
             talente_list2_2 = new List<Talent>();
-
-            talente_list1_1.Add(character.talent_alchimie);
-            talente_list1_1.Add(character.talent_bekehren_ueberzeugen);
-            talente_list1_1.Add(character.talent_betoeren);
-            talente_list1_1.Add(character.talent_boote);
-            talente_list1_1.Add(character.talent_brettspiel);
-            talente_list1_1.Add(character.talent_einschuechtern);
-            talente_list1_1.Add(character.talent_etikette);
-            talente_list1_1.Add(character.talent_faehrtensuchen);
-            talente_list1_1.Add(character.talent_fahrzeuge);
-            talente_list1_1.Add(character.talent_fesseln);
-            talente_list1_1.Add(character.talent_fischen_angeln);
+            //Körpertalente
             talente_list1_1.Add(character.talent_fliegen);
-            talente_list1_1.Add(character.talent_gassenwissen);
             talente_list1_1.Add(character.talent_gaukeleien);
-            talente_list1_1.Add(character.talent_geographie);
+            talente_list1_1.Add(character.talent_klettern);
+            talente_list1_1.Add(character.talent_koerperbeherrschung);
+            talente_list1_1.Add(character.talent_kraftakt);
+            talente_list1_1.Add(character.talent_reiten);
+            talente_list1_1.Add(character.talent_schwimmen);
+            talente_list1_1.Add(character.talent_selbstbeherrschung);
+            talente_list1_1.Add(character.talent_singen);
+            talente_list1_1.Add(character.talent_sinnesschaerfe);
+            talente_list1_1.Add(character.talent_tanzen);
+            talente_list1_1.Add(character.talent_taschendiebstahl);
+            talente_list1_1.Add(character.talent_verbergen);
+            talente_list1_1.Add(character.talent_zechen);
 
-            talente_list1_2.Add(character.talent_geschichtswissen);
-            talente_list1_2.Add(character.talent_goetter_kulte);
-            talente_list1_2.Add(character.talent_handel);
-            talente_list1_2.Add(character.talent_heilkunde_gift);
-            talente_list1_2.Add(character.talent_heilkunde_krankheiten);
-            talente_list1_2.Add(character.talent_heilkunde_seele);
-            talente_list1_2.Add(character.talent_heilkunde_wunden);
-            talente_list1_2.Add(character.talent_holzbearbeitung);
-            talente_list1_2.Add(character.talent_klettern);
-            talente_list1_2.Add(character.talent_koerperbeherrschung);
-            talente_list1_2.Add(character.talent_kraftakt);
-            talente_list1_2.Add(character.talent_kriegskunst);
-            talente_list1_2.Add(character.talent_lebensmittelbearbeitung);
-            talente_list1_2.Add(character.talent_lederbearbeitung);
-            talente_list1_2.Add(character.talent_magiekunde);
+            //gesellschaftstalente
+            talente_list1_2.Add(character.talent_bekehren_ueberzeugen);
+            talente_list1_2.Add(character.talent_betoeren);
+            talente_list1_2.Add(character.talent_einschuechtern);
+            talente_list1_2.Add(character.talent_etikette);
+            talente_list1_2.Add(character.talent_gassenwissen);
+            talente_list1_2.Add(character.talent_menschenkenntnis);
+            talente_list1_2.Add(character.talent_ueberreden);
+            talente_list1_2.Add(character.talent_verkleiden);
+            talente_list1_2.Add(character.talent_wilenskraft);
 
-            talente_list2_1.Add(character.talent_malen_zeichnen);
+            //naturtalente
+            talente_list1_3.Add(character.talent_faehrtensuchen);
+            talente_list1_3.Add(character.talent_fesseln);
+            talente_list1_3.Add(character.talent_fischen_angeln);
+            talente_list1_3.Add(character.talent_orientierung);
+            talente_list1_3.Add(character.talent_pflanzenkunde);
+            talente_list1_3.Add(character.talent_tierkunde);
+            talente_list1_3.Add(character.talent_wildnisleben);
+
+            //wissenstalente
+            talente_list2_1.Add(character.talent_brettspiel);
+            talente_list2_1.Add(character.talent_geographie);
+            talente_list2_1.Add(character.talent_geschichtswissen);
+            talente_list2_1.Add(character.talent_goetter_kulte);
+            talente_list2_1.Add(character.talent_kriegskunst);
+            talente_list2_1.Add(character.talent_magiekunde);
             talente_list2_1.Add(character.talent_mechanik);
-            talente_list2_1.Add(character.talent_menschenkenntnis);
-            talente_list2_1.Add(character.talent_metallarbeitung);
-            talente_list2_1.Add(character.talent_musizieren);
-            talente_list2_1.Add(character.talent_orientierung);
-            talente_list2_1.Add(character.talent_pflanzenkunde);
             talente_list2_1.Add(character.talent_rechnen);
             talente_list2_1.Add(character.talent_rechtskunde);
-            talente_list2_1.Add(character.talent_reiten);
             talente_list2_1.Add(character.talent_sagen_legenden);
-            talente_list2_1.Add(character.talent_schloesserknacken);
-            talente_list2_1.Add(character.talent_schwimmen);
-            talente_list2_1.Add(character.talent_selbstbeherrschung);
-            talente_list2_1.Add(character.talent_singen);
+            talente_list2_1.Add(character.talent_sphaerenkunde);
+            talente_list2_1.Add(character.talent_sternkunde);
 
-            talente_list2_2.Add(character.talent_sinnesschaerfe);
-            talente_list2_2.Add(character.talent_sphaerenkunde);
+            //handwerkstalente
+            talente_list2_2.Add(character.talent_alchimie);
+            talente_list2_2.Add(character.talent_boote);
+            talente_list2_2.Add(character.talent_fahrzeuge);
+            talente_list2_2.Add(character.talent_handel);
+            talente_list2_2.Add(character.talent_heilkunde_gift);
+            talente_list2_2.Add(character.talent_heilkunde_krankheiten);
+            talente_list2_2.Add(character.talent_heilkunde_seele);
+            talente_list2_2.Add(character.talent_heilkunde_wunden);
+            talente_list2_2.Add(character.talent_holzbearbeitung);
+            talente_list2_2.Add(character.talent_lebensmittelbearbeitung);
+            talente_list2_2.Add(character.talent_lederbearbeitung);
+            talente_list2_2.Add(character.talent_malen_zeichnen);
+            talente_list2_2.Add(character.talent_metallarbeitung);
+            talente_list2_2.Add(character.talent_musizieren);
+            talente_list2_2.Add(character.talent_schloesserknacken);
             talente_list2_2.Add(character.talent_steinbearbeitung);
-            talente_list2_2.Add(character.talent_sternkunde);
             talente_list2_2.Add(character.talent_stoffbearbeitung);
-            talente_list2_2.Add(character.talent_tanzen);
-            talente_list2_2.Add(character.talent_taschendiebstahl);
-            talente_list2_2.Add(character.talent_tierkunde);
-            talente_list2_2.Add(character.talent_ueberreden);
-            talente_list2_2.Add(character.talent_verbergen);
-            talente_list2_2.Add(character.talent_verkleiden);
-            talente_list2_2.Add(character.talent_wildnisleben);
-            talente_list2_2.Add(character.talent_wilenskraft);
-            talente_list2_2.Add(character.talent_zechen);
 
             Talente1_1.ItemsSource = null;
             Talente1_2.ItemsSource = null;
+            Talente1_3.ItemsSource = null;
             Talente2_1.ItemsSource = null;
             Talente2_2.ItemsSource = null;
             Talente1_1.ItemsSource = talente_list1_1;
             Talente1_2.ItemsSource = talente_list1_2;
+            Talente1_3.ItemsSource = talente_list1_3;
             Talente2_1.ItemsSource = talente_list2_1;
             Talente2_2.ItemsSource = talente_list2_2;
 
@@ -374,7 +382,7 @@ namespace DSAJSONEditor
 
             talent_alchimie = new Talent("MU", "KL", "FF", "Alchimie", 0);
             talent_bekehren_ueberzeugen = new Talent("MU", "KL", "CH", "Bekehren & Überzeugen", 0);
-            talent_betoeren = new Talent("MU", "CH", "CH", "Betoeren", 0);
+            talent_betoeren = new Talent("MU", "CH", "CH", "Betören", 0);
             talent_boote = new Talent("FF", "GE", "KK", "Boote", 0);
             talent_brettspiel = new Talent("KL", "KL", "IN", "Brett- & Glücksspiel", 0);
             talent_einschuechtern = new Talent("MU", "IN", "CH", "Einschüchtern", 0);

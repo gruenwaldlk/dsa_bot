@@ -60,16 +60,28 @@
                         </Grid.ColumnDefinitions>
                         <DataGrid Grid.Column="0" x:Name="Talente1_1" AutoGenerateColumns="False" DataContext="{Binding Source=list}" >
                             <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding name}" Header="Fertigkeitenname" IsReadOnly="True" Width="4*" CanUserResize="False"/>
+                                <DataGridTextColumn Binding="{Binding name}" Header="Körpertalente" IsReadOnly="True" Width="4*" CanUserResize="False"/>
                                 <DataGridTextColumn Binding="{Binding value}" Header="Wert" IsReadOnly="False" Width="*"  CanUserResize="False" />
                             </DataGrid.Columns>
                         </DataGrid>
-                        <DataGrid Grid.Column="1" x:Name="Talente1_2" AutoGenerateColumns="False" DataContext="{Binding Source=list}">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding name}" Header="Fertigkeitenname" IsReadOnly="True" Width="4*" CanUserResize="False"/>
-                                <DataGridTextColumn Binding="{Binding value}" Header="Wert" IsReadOnly="False" Width="*" CanUserResize="False"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <DataGrid Grid.Row="0" x:Name="Talente1_2" AutoGenerateColumns="False" DataContext="{Binding Source=list}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding name}" Header="Gesellschaftstalente" IsReadOnly="True" Width="4*" CanUserResize="False"/>
+                                    <DataGridTextColumn Binding="{Binding value}" Header="Wert" IsReadOnly="False" Width="*" CanUserResize="False"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <DataGrid Grid.Row="1" x:Name="Talente1_3" AutoGenerateColumns="False" DataContext="{Binding Source=list}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding name}" Header="Naturtalente" IsReadOnly="True" Width="4*" CanUserResize="False"/>
+                                    <DataGridTextColumn Binding="{Binding value}" Header="Wert" IsReadOnly="False" Width="*" CanUserResize="False"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
                     </Grid>
                 </TabItem>
                 <TabItem Header="Talente - 2" Height="22" VerticalAlignment="Bottom">
@@ -80,13 +92,13 @@
                         </Grid.ColumnDefinitions>
                         <DataGrid Grid.Column="0" x:Name="Talente2_1" AutoGenerateColumns="False" DataContext="{Binding Source=list}" >
                             <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding name}" Header="Fertigkeitenname" IsReadOnly="True" Width="4*" CanUserResize="False"/>
+                                <DataGridTextColumn Binding="{Binding name}" Header="Wissenstalente" IsReadOnly="True" Width="4*" CanUserResize="False"/>
                                 <DataGridTextColumn Binding="{Binding value}" Header="Wert" IsReadOnly="False" Width="*"  CanUserResize="False"/>
                             </DataGrid.Columns>
                         </DataGrid>
                         <DataGrid Grid.Column="1" x:Name="Talente2_2" AutoGenerateColumns="False" DataContext="{Binding Source=list}" >
                             <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding name}" Header="Fertigkeitenname" IsReadOnly="True" Width="4*" CanUserResize="False"/>
+                                <DataGridTextColumn Binding="{Binding name}" Header="Handwerkstalente" IsReadOnly="True" Width="4*" CanUserResize="False"/>
                                 <DataGridTextColumn Binding="{Binding value}" Header="Wert" IsReadOnly="False" Width="*" CanUserResize="False"/>
                             </DataGrid.Columns>
                         </DataGrid>
