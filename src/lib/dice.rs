@@ -1,5 +1,6 @@
+use crate::lib::add_without_overflow;
+use crate::lib::substract_without_overflow;
 use crate::lib::Operator;
-
 
 use rand::prelude::*;
 use std::fmt::*;
@@ -30,8 +31,8 @@ impl Dice {
         let val = rng.gen_range(0, self.sides) + 1;
         match self.mod_op {
             Operator::NoP => val,
-            Operator::Plus => val + self.mod_value,
-            Operator::Minus => val - self.mod_value,
+            Operator::Plus => add_without_overflow(val, self.mod_value),
+            Operator::Minus => substract_without_overflow(val, self.mod_value),
         }
     }
     pub(crate) fn roll_n_times(&self, n: u8, vec: &mut Vec<u8>) {
@@ -56,4 +57,3 @@ impl Display for Dice {
         write!(f, "d{}", self.sides)
     }
 }
-
