@@ -3,6 +3,7 @@ use crate::lib::dice::Dice;
 use crate::lib::substract_without_overflow;
 use crate::lib::Operator;
 use log::error;
+use log::info;
 use serenity::framework::standard::macros::command;
 use serenity::framework::standard::Args;
 use serenity::framework::standard::CommandResult;
@@ -128,20 +129,38 @@ fn roll_dice_sum_mod(args: &str) -> String {
             dice_type
         );
     }
-    let mut ret_str = String::new();
-    ret_str.push_str("Result: ");
+    info!("Rolling {}w{}{:?}{}.", dice_count, dice_type, op, modifier);
     let mut result = 0;
     let mut v: Vec<u8> = Vec::new();
     Dice::new(dice_type).roll_n_times(dice_count, &mut v);
     for x in v.iter() {
         result = add_without_overflow(result, *x);
     }
-    ret_str.push_str(&u8::to_string(&result));
     if op == Operator::Plus {
         result = add_without_overflow(result, modifier);
+        println!("{}", result);
     } else {
         result = substract_without_overflow(result, modifier);
+        println!("{}", result);
     }
-    ret_str.push_str(&u8::to_string(&result));
-    ret_str
+    format!("Result: {}", result)
+}
+
+mod test {
+    use super::*;
+    #[test]
+    fn test_roll_dice_sum_mod() {
+        let s = roll_dice_sum_mod("1w6");
+        println!("Rolled {}", s);
+        let s = roll_dice_sum_mod("2w6");
+        println!("Rolled {}", s);
+        let s = roll_dice_sum_mod("3w6");
+        println!("Rolled {}", s);
+        let s = roll_dice_sum_mod("1w6+1");
+        println!("Rolled {}", s);
+        let s = roll_dice_sum_mod("2w6+2");
+        println!("Rolled {}", s);
+        let s = roll_dice_sum_mod("3w6+3");
+        println!("Rolled {}", s);
+    }
 }
