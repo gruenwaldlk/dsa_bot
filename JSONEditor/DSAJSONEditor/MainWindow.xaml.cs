@@ -43,6 +43,7 @@ namespace DSAJSONEditor
         {
             //read from character page
             character.name = Value_Name.Text;
+            int tmp_mu = Int16.Parse(Value_MU.Text);
             int tmp_ch = Int16.Parse(Value_CH.Text);
             int tmp_ff = Int16.Parse(Value_FF.Text);
             int tmp_ge = Int16.Parse(Value_GE.Text);
@@ -51,7 +52,11 @@ namespace DSAJSONEditor
             int tmp_kl = Int16.Parse(Value_KL.Text);
             int tmp_ko = Int16.Parse(Value_KO.Text);
 
-            if (0 < tmp_ch && tmp_ch < 255) {
+            if (0 < tmp_mu && tmp_mu < 255) {
+                character.attribute_mu.value = tmp_mu;
+            }
+            if (0 < tmp_ch && tmp_ch < 255)
+            {
                 character.attribute_ch.value = tmp_ch;
             }
             if (0 < tmp_ff && tmp_ff < 255)
@@ -120,13 +125,21 @@ namespace DSAJSONEditor
                 Grid.SetColumn(txtName, 1);
                 Grid.SetRow(txtName, 1);
 
+                TextBlock txt_mu = new TextBlock();
+                txt_mu.Text = character.attribute_mu.name;
+                txt_mu.FontSize = 18;
+                txt_mu.FontWeight = FontWeights.Bold;
+                CharacterTab.Children.Add(txt_mu);
+                Grid.SetColumn(txt_mu, 1);
+                Grid.SetRow(txt_mu, 3);
+
                 TextBlock txt_ch = new TextBlock();
                 txt_ch.Text = character.attribute_ch.name;
                 txt_ch.FontSize = 18;
                 txt_ch.FontWeight = FontWeights.Bold;
                 CharacterTab.Children.Add(txt_ch);
                 Grid.SetColumn(txt_ch, 1);
-                Grid.SetRow(txt_ch, 3);
+                Grid.SetRow(txt_ch, 4);
 
                 TextBlock txt_ff = new TextBlock();
                 txt_ff.Text = character.attribute_ff.name;
@@ -134,7 +147,7 @@ namespace DSAJSONEditor
                 txt_ff.FontWeight = FontWeights.Bold;
                 CharacterTab.Children.Add(txt_ff);
                 Grid.SetColumn(txt_ff, 1);
-                Grid.SetRow(txt_ff, 4);
+                Grid.SetRow(txt_ff, 5);
 
                 TextBlock txt_ge = new TextBlock();
                 txt_ge.Text = character.attribute_ge.name;
@@ -142,7 +155,7 @@ namespace DSAJSONEditor
                 txt_ge.FontWeight = FontWeights.Bold;
                 CharacterTab.Children.Add(txt_ge);
                 Grid.SetColumn(txt_ge, 1);
-                Grid.SetRow(txt_ge, 5);
+                Grid.SetRow(txt_ge, 6);
 
                 TextBlock txt_in = new TextBlock();
                 txt_in.Text = character.attribute_in.name;
@@ -150,7 +163,7 @@ namespace DSAJSONEditor
                 txt_in.FontWeight = FontWeights.Bold;
                 CharacterTab.Children.Add(txt_in);
                 Grid.SetColumn(txt_in, 1);
-                Grid.SetRow(txt_in, 6);
+                Grid.SetRow(txt_in, 7);
 
 
                 TextBlock txt_kk = new TextBlock();
@@ -159,7 +172,7 @@ namespace DSAJSONEditor
                 txt_kk.FontWeight = FontWeights.Bold;
                 CharacterTab.Children.Add(txt_kk);
                 Grid.SetColumn(txt_kk, 1);
-                Grid.SetRow(txt_kk, 7);
+                Grid.SetRow(txt_kk, 8);
 
 
                 TextBlock txt_kl = new TextBlock();
@@ -168,7 +181,7 @@ namespace DSAJSONEditor
                 txt_kl.FontWeight = FontWeights.Bold;
                 CharacterTab.Children.Add(txt_kl);
                 Grid.SetColumn(txt_kl, 1);
-                Grid.SetRow(txt_kl, 8);
+                Grid.SetRow(txt_kl, 9);
 
 
                 TextBlock txt_ko = new TextBlock();
@@ -177,10 +190,11 @@ namespace DSAJSONEditor
                 txt_ko.FontWeight = FontWeights.Bold;
                 CharacterTab.Children.Add(txt_ko);
                 Grid.SetColumn(txt_ko, 1);
-                Grid.SetRow(txt_ko, 9);
+                Grid.SetRow(txt_ko, 10);
             }
             // display values
             Value_Name.Text = character.name;
+            Value_MU.Text = character.attribute_mu.value.ToString();
             Value_CH.Text = character.attribute_ch.value.ToString();
             Value_FF.Text = character.attribute_ff.value.ToString();
             Value_GE.Text = character.attribute_ge.value.ToString();
@@ -295,7 +309,8 @@ namespace DSAJSONEditor
     {
         public String name;
         public UInt64 owner;
-        
+
+        public Attribute attribute_mu;
         public Attribute attribute_ch;
         public Attribute attribute_ff;
         public Attribute attribute_ge;
@@ -303,7 +318,6 @@ namespace DSAJSONEditor
         public Attribute attribute_kk;
         public Attribute attribute_kl;
         public Attribute attribute_ko;
-        public Attribute attribute_mu; 
         
         public Talent talent_alchimie { get; set; }
         public Talent talent_bekehren_ueberzeugen { get; set; }

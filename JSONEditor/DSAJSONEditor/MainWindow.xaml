@@ -43,13 +43,14 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <TextBox x:Name="Value_Name" Grid.Row="1" Grid.Column="2"/>
-                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Value_CH" Grid.Row="3" Grid.Column="2"/>
-                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Value_FF" Grid.Row="4" Grid.Column="2"/>
-                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Value_GE" Grid.Row="5" Grid.Column="2"/>
-                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Value_IN" Grid.Row="6" Grid.Column="2"/>
-                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Value_KK" Grid.Row="7" Grid.Column="2"/>
-                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Value_KL" Grid.Row="8" Grid.Column="2"/>
-                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Value_KO" Grid.Row="9" Grid.Column="2"/>
+                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Value_MU" Grid.Row="3" Grid.Column="2"/>
+                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Value_CH" Grid.Row="4" Grid.Column="2"/>
+                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Value_FF" Grid.Row="5" Grid.Column="2"/>
+                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Value_GE" Grid.Row="6" Grid.Column="2"/>
+                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Value_IN" Grid.Row="7" Grid.Column="2"/>
+                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Value_KK" Grid.Row="8" Grid.Column="2"/>
+                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Value_KL" Grid.Row="9" Grid.Column="2"/>
+                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Value_KO" Grid.Row="10" Grid.Column="2"/>
                     </Grid>
                 </TabItem>
                 <TabItem Header="Talente - 1" Height="22" VerticalAlignment="Bottom">
