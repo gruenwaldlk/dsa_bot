@@ -1,7 +1,9 @@
-pub mod attribute;
-pub mod char_repository;
-pub mod character;
-pub mod talent;
+pub(crate) mod attribute;
+pub(crate) mod char_repository;
+pub(crate) mod character;
+pub(crate) mod checks;
+pub(crate) mod spells;
+pub(crate) mod talent;
 use crate::lib::dice::Dice;
 use crate::lib::*;
 use log::debug;
@@ -12,6 +14,11 @@ pub(crate) enum ResultType {
   CriticalFailure,
   Success,
   CriticalSuccess,
+}
+impl Default for ResultType {
+  fn default() -> Self {
+    ResultType::Failure
+  }
 }
 
 fn check_critical_success(attribute: u8, crit_count: u8) -> u8 {

@@ -5,7 +5,7 @@ pub(crate) enum Operator {
     NoP,
 }
 
-pub(crate) fn substract_without_overflow(minuend: u8, subtrahend: u8) -> u8 {
+pub(crate) fn subtract_without_overflow(minuend: u8, subtrahend: u8) -> u8 {
     match u8::checked_sub(minuend, subtrahend) {
         Some(v) => v,
         None => u8::min_value(),

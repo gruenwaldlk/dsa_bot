@@ -1,5 +1,5 @@
 use crate::lib::add_without_overflow;
-use crate::lib::substract_without_overflow;
+use crate::lib::subtract_without_overflow;
 use crate::lib::Operator;
 
 use rand::prelude::*;
@@ -32,7 +32,7 @@ impl Dice {
         match self.mod_op {
             Operator::NoP => val,
             Operator::Plus => add_without_overflow(val, self.mod_value),
-            Operator::Minus => substract_without_overflow(val, self.mod_value),
+            Operator::Minus => subtract_without_overflow(val, self.mod_value),
         }
     }
     pub(crate) fn roll_n_times(&self, n: u8, vec: &mut Vec<u8>) {

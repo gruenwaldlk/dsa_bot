@@ -1,6 +1,6 @@
 use crate::lib::add_without_overflow;
 use crate::lib::dice::Dice;
-use crate::lib::substract_without_overflow;
+use crate::lib::subtract_without_overflow;
 use crate::lib::Operator;
 use log::error;
 use log::info;
@@ -140,7 +140,7 @@ fn roll_dice_sum_mod(args: &str) -> String {
         result = add_without_overflow(result, modifier);
         println!("{}", result);
     } else {
-        result = substract_without_overflow(result, modifier);
+        result = subtract_without_overflow(result, modifier);
         println!("{}", result);
     }
     format!("Result: {}", result)
