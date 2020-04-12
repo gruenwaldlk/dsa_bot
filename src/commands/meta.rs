@@ -16,6 +16,7 @@ fn uwu(ctx: &mut Context, msg: &Message) -> CommandResult {
 }
 
 #[command]
+#[aliases("h", "?")]
 fn help(ctx: &mut Context, msg: &Message) -> CommandResult {
     let _ = msg.reply(ctx, get_help_text());
     Ok(())
@@ -30,7 +31,9 @@ fn get_help_text() -> String {
     string.push_str(
         "                              Shorthand: rsm, rsmod, rsummod, roll_sum, rsum, rs\n",
     );
-    string.push_str("character_info                Rolls x y-sided dice with an optional modificator z and sums them up.\n");
+    string.push_str(
+        "character_info                Tells a player as what character they are playing.\n",
+    );
     string.push_str("                              Shorthand: char, c\n");
     string.push_str(
         "talent_roll <talent>+|-<m>    Performs a talent check with an optional modification m.\n",

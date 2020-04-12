@@ -31,7 +31,7 @@ lazy_static! {
     static ref BASIC_TALENT_ROLL_REGEX: Regex =
         Regex::new(r"^([a-zA-Zöäü_]+)$").expect("The regex could not be parsed.");
     static ref BASIC_TALENT_ROLL_REGEX_WITH_MOD: Regex =
-        Regex::new(r"^([a-zA-Zöäü_]+)(\+|-)(\d+)$").expect("The regex could not be parsed.");
+        Regex::new(r"^([a-zA-Zöäüß_]+)(\+|-)(\d+)$").expect("The regex could not be parsed.");
     static ref CHARACTER_REPOSITORY: CharRepository = CharRepository::new_from_file(
         &env::var("CHARACTER_REPOSITORY").expect("The environment variable could not be found.")
     );
