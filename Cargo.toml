@@ -1,6 +1,6 @@
 [package]
 name = "dsa_bot"
-version = "1.0.0"
+version = "1.0.1"
 authors = ["Lukas Grünwald <gruenwald.lk@outlook.com>"]
 edition = "2018"
 
