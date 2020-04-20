@@ -1,0 +1,9 @@
+{
+  "test": "Test: de_DE",
+  "commands.roll.err.invalid-dice-pattern": "Ungültiges Würfelschema: ",
+  "commands.roll.err.invalid-dice-count": "Das ist keine gültige Anzahl von Würfeln: ",
+  "commands.roll.err.invalid-dice": "Das ist kein gültiger Würfel: ",
+  "commands.roll.i-rolled": "Ich habe ",
+  "commands.roll.i-rolled-a": "Ich habe einen ",
+  "commands.roll.for-you": " für Dich gewürfelt: "
+}

@@ -1,0 +1,9 @@
+{
+  "test": "Test: en_GB",
+  "commands.roll.err.invalid-dice-pattern": "Invalid dice pattern: ",
+  "commands.roll.err.invalid-dice-count": "That is not a valid number of dice: ",
+  "commands.roll.err.invalid-dice": "This is not a valid dice: ",
+  "commands.roll.i-rolled": "I rolled ",
+  "commands.roll.i-rolled-a": "I rolled a ",
+  "commands.roll.for-you": " for you: "
+}

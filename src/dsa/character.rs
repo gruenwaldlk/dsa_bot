@@ -7,6 +7,7 @@ use crate::dsa::*;
 use crate::lib::dice::Dice;
 use crate::lib::*;
 use log::info;
+use log::warn;
 use serde::Deserialize;
 use serde::Serialize;
 use std::cmp::Ordering;
@@ -57,7 +58,10 @@ impl Character {
         let talent_id = Talent::clean_talent_id(id);
         let default_talent = match Talent::get_default_by_id(talent_id) {
             Some(t) => t,
-            _ => return format!("The Talent \"{}\" does not exist.", id),
+            _ => {
+                warn!("The talent with id \"{}\" could not be matched.", id);
+                return format!("The talent \"{}\" does not exist.", id);
+            }
         };
         let talent = match self.get_talent_by_id(talent_id) {
             Some(tal) => tal,
