@@ -1,9 +1,9 @@
 use crate::curr_lang;
+use crate::get_text;
 use crate::lib::add_without_overflow;
 use crate::lib::dice::Dice;
 use crate::lib::subtract_without_overflow;
 use crate::lib::Operator;
-use crate::CTX;
 use log::debug;
 use log::error;
 use log::info;
@@ -49,18 +49,18 @@ fn roll_dice(args: &str) -> String {
         dice.roll_n_times(dice_count, &mut vec);
         format!(
             "{}{} {}{}{:?}",
-            get_text!(CTX, curr_lang(), "commands.roll.i-rolled").unwrap(),
+            get_text("commands.roll.i-rolled"),
             dice_count,
             dice,
-            get_text!(CTX, curr_lang(), "commands.roll.for-you").unwrap(),
+            get_text("commands.roll.for-you"),
             vec
         )
     } else {
         format!(
             "{}{}{}{}",
-            get_text!(CTX, curr_lang(), "commands.roll.i-rolled-a").unwrap(),
+            get_text("commands.roll.i-rolled-a"),
             dice,
-            get_text!(CTX, curr_lang(), "commands.roll.for-you").unwrap(),
+            get_text("commands.roll.for-you"),
             dice.roll()
         )
     }
@@ -114,18 +114,18 @@ fn roll_dice_sum_no_mod(args: &str) -> String {
     if dice_count > 1 {
         format!(
             "{}{} {}{}{:?}",
-            get_text!(CTX, curr_lang(), "commands.roll.i-rolled").unwrap(),
+            get_text("commands.roll.i-rolled"),
             dice_count,
             Dice::new(dice_type),
-            get_text!(CTX, curr_lang(), "commands.roll.for-you").unwrap(),
+            get_text("commands.roll.for-you"),
             result
         )
     } else {
         format!(
             "{}{}{}{}",
-            get_text!(CTX, curr_lang(), "commands.roll.i-rolled-a").unwrap(),
+            get_text("commands.roll.i-rolled-a"),
             Dice::new(dice_type),
-            get_text!(CTX, curr_lang(), "commands.roll.for-you").unwrap(),
+            get_text("commands.roll.for-you"),
             result
         )
     }
@@ -168,20 +168,20 @@ fn roll_dice_sum_mod(args: &str) -> String {
     if dice_count > 1 {
         format!(
             "{}{}{}{}{}{}",
-            get_text!(CTX, curr_lang(), "commands.roll.i-rolled").unwrap(),
+            get_text("commands.roll.i-rolled"),
             dice_count,
             Dice::new(dice_type),
             with_mod(op, modifier),
-            get_text!(CTX, curr_lang(), "commands.roll.for-you").unwrap(),
+            get_text("commands.roll.for-you"),
             result
         )
     } else {
         format!(
             "{}{}{}{}{}",
-            get_text!(CTX, curr_lang(), "commands.roll.i-rolled-a").unwrap(),
+            get_text("commands.roll.i-rolled-a"),
             Dice::new(dice_type),
             with_mod(op, modifier),
-            get_text!(CTX, curr_lang(), "commands.roll.for-you").unwrap(),
+            get_text("commands.roll.for-you"),
             result
         )
     }
@@ -195,7 +195,7 @@ fn with_mod(op: Operator, modifier: u8) -> String {
 fn err_invalid_dice_pattern(args: &str) -> String {
     format!(
         "{} {:?}",
-        get_text!(CTX, curr_lang(), "commands.roll.err.invalid-dice-pattern").unwrap(),
+        get_text("commands.roll.err.invalid-dice-pattern"),
         args
     )
 }
@@ -203,7 +203,7 @@ fn err_invalid_dice_pattern(args: &str) -> String {
 fn err_invalid_dice_count(dice_count: u8) -> String {
     format!(
         "{}{}",
-        get_text!(CTX, curr_lang(), "commands.roll.err.invalid-dice-count").unwrap(),
+        get_text("commands.roll.err.invalid-dice-count"),
         dice_count
     )
 }
@@ -211,7 +211,7 @@ fn err_invalid_dice_count(dice_count: u8) -> String {
 fn err_invalid_dice(dice_type: u8) -> String {
     format!(
         "{}d{}",
-        get_text!(CTX, curr_lang(), "commands.roll.err.invalid-dice").unwrap(),
+        get_text("commands.roll.err.invalid-dice"),
         dice_type
     )
 }
