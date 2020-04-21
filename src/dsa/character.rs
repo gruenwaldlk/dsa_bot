@@ -6,6 +6,7 @@ use crate::dsa::ResultType;
 use crate::dsa::*;
 use crate::lib::dice::Dice;
 use crate::lib::*;
+use crate::util::localisation::get_text;
 use log::info;
 use log::warn;
 use serde::Deserialize;
@@ -124,15 +125,15 @@ impl Character {
             Operator::NoP => talent.name().to_string(),
         };
         let msg = if is_critical_success {
-            "Critical success"
+            get_text("dsa.character.is-critical-success")
         } else if is_success {
-            "Success"
+            get_text("dsa.character.is-success")
         } else if !is_success && !is_critical_failure && !is_critical_success {
-            "Failure!"
+            get_text("dsa.character.is-failure")
         } else if !is_success && !is_critical_success && is_critical_failure {
-            "Critical Failure!"
+            get_text("dsa.character.is-critical-failure")
         } else {
-            "Beep ... bop ... I'm not sure what happened, sorry!"
+            get_text("dsa.character.success-unknown")
         };
         let mut q = get_quality(current_talent_val);
         if is_critical_success {
@@ -148,11 +149,26 @@ impl Character {
         }
         if is_success {
             format!(
-                ":white_check_mark: **{} - {} with quality level {}!**\n{}\n{}\n{}",
-                check, msg, q, r1, r2, r3
+                "{} **{} - {}{}{}!**\n{}\n{}\n{}",
+                get_text("dsa.character.is-talent-check-success-emoji"),
+                check,
+                msg,
+                get_text("dsa.character.is-talent-check-success-with-quality-level"),
+                q,
+                r1,
+                r2,
+                r3
             )
         } else {
-            format!(":x: **{} - {}**\n{}\n{}\n{}", check, msg, r1, r2, r3)
+            format!(
+                "{} **{} - {}**\n{}\n{}\n{}",
+                get_text("dsa.character.is-talent-check-failure-emoji"),
+                check,
+                msg,
+                r1,
+                r2,
+                r3
+            )
         }
     }
 }
@@ -199,45 +215,84 @@ fn check_talent_roll(
     let roll = d.roll();
     if roll == 1 {
         let crit_count = check_critical_success(attribute_val, 0);
-        if crit_count > 0 {
-            let s = format!(
-                ":partying_face: - {}: {}, crit check succeded {} time(-s)",
-                get_attribute_display(attribute, attribute_val),
-                roll,
-                crit_count
-            );
-            return TalentCheckResult::new(&s, ResultType::CriticalSuccess, crit_count);
-        } else {
-            let s = format!(
-                ":green_circle: - {}: {}, crit check failed.",
-                get_attribute_display(attribute, attribute_val),
-                roll
-            );
-            return TalentCheckResult::new(&s, ResultType::Success, crit_count);
+        match crit_count {
+            0 => {
+                let s = format!(
+                    "{} - {}: {},{}",
+                    get_text("dsa.character.is-attribute-check-success-emoji"),
+                    get_attribute_display(attribute, attribute_val),
+                    roll,
+                    get_text("dsa.character.is-attribute-check-critical-success-check-failed")
+                );
+                return TalentCheckResult::new(&s, ResultType::Success, crit_count);
+            }
+            1 => {
+                let s = format!(
+                    "{} - {}: {}, {}",
+                    get_text("dsa.character.is-attribute-check-critical-success-emoji"),
+                    get_attribute_display(attribute, attribute_val),
+                    roll,
+                    get_text("dsa.character.is-attribute-check-critical-success-check-success")
+                );
+                return TalentCheckResult::new(&s, ResultType::CriticalSuccess, crit_count);
+            }
+            _ => {
+                let s = format!(
+                    "{} - {}: {}, {}{}",
+                    get_text("dsa.character.is-attribute-check-critical-success-emoji"),
+                    get_attribute_display(attribute, attribute_val),
+                    roll,
+                    crit_count,
+                    get_text(
+                        "dsa.character.is-attribute-check-critical-success-check-success-n-times"
+                    )
+                );
+                return TalentCheckResult::new(&s, ResultType::CriticalSuccess, crit_count);
+            }
         }
     }
     if roll == 20 {
         let crit_count = check_critical_failure(attribute_val, 0);
-        if crit_count > 0 {
-            let s = format!(
-                ":skull: - {}: {}, crit check failed {} time(-s)",
-                get_attribute_display(attribute, attribute_val),
-                roll,
-                crit_count
-            );
-            return TalentCheckResult::new(&s, ResultType::CriticalFailure, 1);
-        } else {
-            let s = format!(
-                ":red_circle: - {}: {}, crit check succeeded.",
-                get_attribute_display(attribute, attribute_val),
-                roll
-            );
-            return TalentCheckResult::new(&s, ResultType::Failure, 0);
+        match crit_count {
+            0 => {
+                let s = format!(
+                    "{} - {}: {}, {}",
+                    get_text("dsa.character.is-attribute-check-failure-emoji"),
+                    get_attribute_display(attribute, attribute_val),
+                    roll,
+                    get_text("dsa.character.is-attribute-check-critical-failure-check-success")
+                );
+                return TalentCheckResult::new(&s, ResultType::Failure, crit_count);
+            }
+            1 => {
+                let s = format!(
+                    "{} - {}: {}, {}",
+                    get_text("dsa.character.is-attribute-check-failure-emoji"),
+                    get_attribute_display(attribute, attribute_val),
+                    roll,
+                    get_text("dsa.character.is-attribute-check-critical-failure-check-failure")
+                );
+                return TalentCheckResult::new(&s, ResultType::CriticalFailure, crit_count);
+            }
+            _ => {
+                let s = format!(
+                    "{} - {}: {}, {}{}",
+                    get_text("dsa.character.is-attribute-check-failure-emoji"),
+                    get_attribute_display(attribute, attribute_val),
+                    roll,
+                    crit_count,
+                    get_text(
+                        "dsa.character.is-attribute-check-critical-failure-check-failure-n-times"
+                    )
+                );
+                return TalentCheckResult::new(&s, ResultType::CriticalFailure, crit_count);
+            }
         }
     }
     if roll <= attribute_val {
         let s = format!(
-            ":green_circle: - {}: {}",
+            "{} - {}: {}",
+            get_text("dsa.character.is-attribute-check-success-emoji"),
             get_attribute_display(attribute, attribute_val),
             roll
         );
@@ -245,7 +300,8 @@ fn check_talent_roll(
     }
     if *current_talent_val < 1 {
         let s = format!(
-            ":red_circle: - {}: {}",
+            "{} - {}: {}",
+            get_text("dsa.character.is-attribute-check-failure-emoji"),
             get_attribute_display(attribute, attribute_val),
             roll
         );
@@ -254,21 +310,27 @@ fn check_talent_roll(
     let diff = subtract_without_overflow(roll, attribute_val);
     if *current_talent_val < diff {
         let s = format!(
-            ":red_circle: - {}: {}: {} points left, but {} missing.",
+            "{} - {}: {}: {}{}{}{}",
+            get_text("dsa.character.is-attribute-check-failure-emoji"),
             get_attribute_display(attribute, attribute_val),
             roll,
             *current_talent_val,
-            diff
+            get_text("dsa.character.is-attribute-check-failed-not-compensated.00"),
+            diff,
+            get_text("dsa.character.is-attribute-check-failed-not-compensated.01")
         );
         TalentCheckResult::new(&s, ResultType::Failure, 0)
     } else {
         *current_talent_val = subtract_without_overflow(*current_talent_val, diff);
         let s = format!(
-            ":orange_circle: - {}: {}: {} points used, {} left.",
+            "{} - {}: {}: {}{}{}{}",
+            get_text("dsa.character.is-attribute-check-failed-but-compensated-emoji"),
             get_attribute_display(attribute, attribute_val),
             roll,
             diff,
-            *current_talent_val
+            get_text("dsa.character.is-attribute-check-failed-but-compensated.00"),
+            *current_talent_val,
+            get_text("dsa.character.is-attribute-check-failed-but-compensated.01")
         );
         TalentCheckResult::new(&s, ResultType::Success, 0)
     }

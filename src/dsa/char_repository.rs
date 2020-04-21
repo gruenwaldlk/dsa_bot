@@ -1,4 +1,6 @@
 use crate::dsa::character::Character;
+use log::error;
+use log::warn;
 use std::collections::HashMap;
 use std::fs;
 use std::fs::File;
@@ -35,13 +37,22 @@ impl CharRepository {
     pub(crate) fn get_char_by_player_id(&self, player_id: u64) -> Option<&Character> {
         let key_value_pair = match self.id_repository.get_key_value(&player_id) {
             Some(kvp) => kvp,
-            None => return None,
+            None => {
+                warn!("No character found for player id {}!", player_id);
+                return None;
+            }
         };
         let char_id = CharRepository::create_char_id(key_value_pair.1, *key_value_pair.0);
-        self.char_repository.get(&char_id)
+        self.get_char_by_id(&char_id)
     }
     pub(crate) fn get_char_by_id(&self, id: &str) -> Option<&Character> {
-        self.char_repository.get(id)
+        match self.char_repository.get(id) {
+            Some(c) => Some(c),
+            None => {
+                error!("No character found for id {}!", id);
+                None
+            }
+        }
     }
     pub(crate) fn get_char_by_name_and_player_id(
         &self,
