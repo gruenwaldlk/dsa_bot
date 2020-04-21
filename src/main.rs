@@ -8,6 +8,7 @@ extern crate lazy_static;
 extern crate json_gettext;
 
 use json_gettext::JSONGetText;
+use json_gettext::JSONGetTextValue;
 use log::debug;
 use log::error;
 use log::info;
@@ -22,6 +23,7 @@ use serenity::model::gateway::Ready;
 use serenity::prelude::*;
 use std::collections::HashSet;
 use std::env;
+use std::str::FromStr;
 use std::sync::Arc;
 
 use commands::character::*;
@@ -40,8 +42,8 @@ lazy_static! {
         Regex::new(r"^([a-zA-Zöäüß_]+)(\+|-)(\d+)$").expect("The regex could not be parsed.");
     static ref CHARACTER_REPOSITORY: CharRepository = CharRepository::new_from_file(
         &env::var("CHARACTER_REPOSITORY").expect("The environment variable could not be found.")
-
     );
+    static ref DM_ROLE_ID : serenity::model::id::RoleId = serenity::model::id::RoleId(u64::from_str(&env::var("DM_ROLE_ID").expect("The environment variable could not be found.")).expect("The environment variable could not be parsed."));
     static ref CTX: JSONGetText<'static> = static_json_gettext_build!(
         "en_GB",
         "en_GB", "lang/en_GB.json",
@@ -138,6 +140,13 @@ pub(crate) fn curr_lang() -> String {
         env::var("CURRENT_LANGUAGE").expect("Expected a token in the environment");
     debug!("Current language: {}", current_language);
     current_language
+}
+
+pub(crate) fn get_text(key: &str) -> String {
+    format!(
+        "{}",
+        get_text!(CTX, curr_lang(), key).unwrap_or(JSONGetTextValue::from_str("MISSING"))
+    )
 }
 
 mod test {

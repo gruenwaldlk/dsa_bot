@@ -5,5 +5,11 @@
   "commands.roll.err.invalid-dice": "This is not a valid dice: ",
   "commands.roll.i-rolled": "I rolled ",
   "commands.roll.i-rolled-a": "I rolled a ",
-  "commands.roll.for-you": " for you: "
+  "commands.roll.for-you": " for you: ",
+  "commands.character.you-are-dm": "You are the Dungeon Master.",
+  "commands.character.you-are-playing-as": "You are playing as ",
+  "commands.character.you-are-not-playing-as-anyone": "Sorry, you are not playing as anyone.\nYou can use the JSON Character editor to create you character and send it to the DSA Bot Host to start playing.\nDownload: https://github.com/gruenwaldlk/dsa_bot/releases",
+  "commands.character.no-talent-checks-allowed": "You can't execute talent checks.",
+  "commands.character.ini-player": "Your combat initiative is ",
+  "commands.character.could-not-parse-talent-check": "Sorry, I couldn't parse the command. Maybe you mistyped?"
 }

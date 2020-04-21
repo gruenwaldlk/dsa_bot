@@ -5,5 +5,11 @@
   "commands.roll.err.invalid-dice": "Das ist kein gültiger Würfel: ",
   "commands.roll.i-rolled": "Ich habe ",
   "commands.roll.i-rolled-a": "Ich habe einen ",
-  "commands.roll.for-you": " für Dich gewürfelt: "
+  "commands.roll.for-you": " für Dich gewürfelt: ",
+  "commands.character.you-are-dm": "Du bist der Spielleiter.",
+  "commands.character.you-are-playing-as": "Du spielst als ",
+  "commands.character.you-are-not-playing-as-anyone": "Ich habe leider keinen Charakter für dich gefunden.\nDu kannst den JSON Character Editor benutzen, um Deinen Charakter zu digitalisieren und ihn dem Bot Host zukommen zu lassen.\nDen Download findest Du unter https://github.com/gruenwaldlk/dsa_bot/releases",
+  "commands.character.no-talent-checks-allowed": "Du kannst keine Talentwürfe ausführen.",
+  "commands.character.ini-player": "Deine Kampfinitiative ist ",
+  "commands.character.could-not-parse-talent-check": "Ich kann den Befehl nicht verabeiten, hast Du Dich vielleicht vertippt?"
 }

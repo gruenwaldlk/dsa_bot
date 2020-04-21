@@ -1,3 +1,5 @@
+use crate::commands::util;
+use crate::get_text;
 use crate::lib::Operator;
 use log::error;
 use serenity::framework::standard::macros::command;
@@ -10,9 +12,29 @@ use std::str::FromStr;
 #[command]
 #[aliases("char", "c")]
 fn character_info(ctx: &mut Context, msg: &Message) -> CommandResult {
+  let is_dm = match &msg.member {
+    Some(pm) => util::is_dm(pm),
+    _ => false,
+  };
   let result = match crate::CHARACTER_REPOSITORY.get_char_by_player_id(*msg.author.id.as_u64()) {
-    Some(c) => format!("You are playing as {}.", c.name()),
-    None => String::from("Sorry, you are not playing as anyone."),
+    Some(c) => {
+      if is_dm {
+        get_text("commands.character.you-are-dm")
+      } else {
+        format!(
+          "{}{}.",
+          get_text("commands.character.you-are-playing-as"),
+          c.name()
+        )
+      }
+    }
+    None => {
+      if is_dm {
+        get_text("commands.character.you-are-dm")
+      } else {
+        get_text("commands.character.you-are-not-playing-as-anyone")
+      }
+    }
   };
   if let Err(why) = msg.reply(&ctx.http, result) {
     error!("Error sending message: {:?}", why);
@@ -23,10 +45,30 @@ fn character_info(ctx: &mut Context, msg: &Message) -> CommandResult {
 #[command]
 #[aliases("t")]
 fn talent_roll(ctx: &mut Context, msg: &Message, args: Args) -> CommandResult {
+  let is_dm = match &msg.member {
+    Some(pm) => util::is_dm(pm),
+    _ => false,
+  };
+  if is_dm {
+    if let Err(why) = msg.reply(
+      &ctx.http,
+      format!(
+        "{} {}",
+        get_text("commands.character.you-are-dm"),
+        get_text("commands.character.no-talent-checks-allowed")
+      ),
+    ) {
+      error!("Error sending message: {:?}", why);
+    }
+    return Ok(());
+  }
   let c = match crate::CHARACTER_REPOSITORY.get_char_by_player_id(*msg.author.id.as_u64()) {
     Some(c) => c,
     None => {
-      if let Err(why) = msg.reply(&ctx.http, "Sorry, you are not playing as anyone.") {
+      if let Err(why) = msg.reply(
+        &ctx.http,
+        get_text("commands.character.you-are-not-playing-as-anyone"),
+      ) {
         error!("Error sending message: {:?}", why);
       }
       return Ok(());
@@ -43,7 +85,14 @@ fn talent_roll(ctx: &mut Context, msg: &Message, args: Args) -> CommandResult {
       Ok(())
     }
     None => {
-      if let Err(why) = msg.reply(&ctx.http, "Could not parse command argument.") {
+      if let Err(why) = msg.reply(
+        &ctx.http,
+        format!(
+          "{} {}",
+          get_text("commands.character.could-not-parse-talent-check"),
+          args.message()
+        ),
+      ) {
         error!("Error sending message: {:?}", why);
       }
       Ok(())
@@ -57,13 +106,19 @@ fn get_ini(ctx: &mut Context, msg: &Message) -> CommandResult {
   let c = match crate::CHARACTER_REPOSITORY.get_char_by_player_id(*msg.author.id.as_u64()) {
     Some(c) => c,
     None => {
-      if let Err(why) = msg.reply(&ctx.http, "Sorry, you are not playing as anyone.") {
+      if let Err(why) = msg.reply(
+        &ctx.http,
+        get_text("commands.character.you-are-not-playing-as-anyone"),
+      ) {
         error!("Error sending message: {:?}", why);
       }
       return Ok(());
     }
   };
-  if let Err(why) = msg.reply(&ctx.http, format!("Initiative: {}", c.ini())) {
+  if let Err(why) = msg.reply(
+    &ctx.http,
+    format!("{}{}", get_text("commands.character.ini-player"), c.ini()),
+  ) {
     error!("Error sending message: {:?}", why);
   }
   Ok(())
