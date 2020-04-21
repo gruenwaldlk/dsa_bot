@@ -11,5 +11,6 @@
   "commands.character.you-are-not-playing-as-anyone": "Sorry, you are not playing as anyone.\nYou can use the JSON Character editor to create you character and send it to the DSA Bot Host to start playing.\nDownload: https://github.com/gruenwaldlk/dsa_bot/releases",
   "commands.character.no-talent-checks-allowed": "You can't execute talent checks.",
   "commands.character.ini-player": "Your combat initiative is ",
-  "commands.character.could-not-parse-talent-check": "Sorry, I couldn't parse the command. Maybe you mistyped?"
+  "commands.character.could-not-parse-talent-check": "Sorry, I couldn't parse the command. Maybe you mistyped?",
+  "commands.meta.help": "**Commands**\n```txt\nroll         <n>d<m>          Rolls n m-sided dice.\n                              Shorthand: r\nroll_sum_mod <x>d<y>+|-<z>    Rolls x y-sided dice with an optional modificator z and sums them up.\n                              Shorthand: rsm, rsmod, rsummod, roll_sum, rsum, rs\ncharacter_info                Tells a player as what character they are playing.\n                              Shorthand: char, c\ntalent_roll <talent>+|-<m>    Performs a talent check with an optional modification m.\n                              Shorthand: t\nget_ini                       Rolls the character's ini.\n                              Shorthand: ini\n```"
 }

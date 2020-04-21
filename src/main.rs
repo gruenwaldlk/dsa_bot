@@ -9,7 +9,6 @@ extern crate lazy_static;
 extern crate json_gettext;
 
 use json_gettext::JSONGetText;
-use log::debug;
 use log::error;
 use log::info;
 use log::warn;

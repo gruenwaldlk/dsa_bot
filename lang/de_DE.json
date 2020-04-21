@@ -11,5 +11,6 @@
   "commands.character.you-are-not-playing-as-anyone": "Ich habe leider keinen Charakter für dich gefunden.\nDu kannst den JSON Character Editor benutzen, um Deinen Charakter zu digitalisieren und ihn dem Bot Host zukommen zu lassen.\nDen Download findest Du unter https://github.com/gruenwaldlk/dsa_bot/releases",
   "commands.character.no-talent-checks-allowed": "Du kannst keine Talentwürfe ausführen.",
   "commands.character.ini-player": "Deine Kampfinitiative ist ",
-  "commands.character.could-not-parse-talent-check": "Ich kann den Befehl nicht verabeiten, hast Du Dich vielleicht vertippt?"
+  "commands.character.could-not-parse-talent-check": "Ich kann den Befehl nicht verabeiten, hast Du Dich vielleicht vertippt?",
+  "commands.meta.help": "**Befehle**\n```txt\nroll         <n>d<m>          Würfelt n m-seitige Würfel.\n                              Abkürzung: r\nroll_sum_mod <x>d<y>+|-<z>    Würfelt x y-seitige mit einem optionalen Modifikator z und summiert diese.\n                              Abkürzungen: rsm, rsmod, rsummod, roll_sum, rsum, rs\ncharacter_info                Zeigt welchen Charakter man spielt.\n                              Abkürzungen: char, c\n\ntalent_roll <talent>+|-<m>    Führt einen Talentwurf für den eigenen Charakter aus. Optional kann um den Modifikator m dieser erschwert/erleichtert werden.\n                              Abkürzung: t\nget_ini                       Würfelt die Kampfinitiative für den Charakter aus.\n                              Abkürzung: ini\n```"
 }

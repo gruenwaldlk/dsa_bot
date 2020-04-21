@@ -11,7 +11,7 @@ pub(crate) fn get_text(key: &str) -> String {
   );
   if &s == "MISSING" {
     error!(
-      "Missing translation - Language: {}, Key: {}",
+      "Missing translation - Language: {}, Key: \"{}\"",
       curr_lang(),
       key
     );
