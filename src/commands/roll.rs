@@ -1,9 +1,8 @@
-use crate::curr_lang;
-use crate::get_text;
 use crate::lib::add_without_overflow;
 use crate::lib::dice::Dice;
 use crate::lib::subtract_without_overflow;
 use crate::lib::Operator;
+use crate::util::localisation::get_text;
 use log::debug;
 use log::error;
 use log::info;

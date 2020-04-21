@@ -1,6 +1,6 @@
 use crate::commands::util;
-use crate::get_text;
 use crate::lib::Operator;
+use crate::util::localisation::get_text;
 use log::error;
 use serenity::framework::standard::macros::command;
 use serenity::framework::standard::Args;
