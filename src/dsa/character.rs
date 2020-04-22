@@ -300,7 +300,9 @@ fn check_talent_roll(
             1 => {
                 let s = format!(
                     "{} - {}: {}, {}",
-                    util::localisation::get_text("dsa.character.is-attribute-check-failure-emoji"),
+                    util::localisation::get_text(
+                        "dsa.character.is-attribute-check-critical-failure-emoji"
+                    ),
                     get_attribute_display(attribute, attribute_val),
                     roll,
                     util::localisation::get_text(
@@ -316,7 +318,9 @@ fn check_talent_roll(
             _ => {
                 let s = format!(
                     "{} - {}: {}, {}{}",
-                    util::localisation::get_text("dsa.character.is-attribute-check-failure-emoji"),
+                    util::localisation::get_text(
+                        "dsa.character.is-attribute-check-critical-failure-emoji"
+                    ),
                     get_attribute_display(attribute, attribute_val),
                     roll,
                     crit_count,

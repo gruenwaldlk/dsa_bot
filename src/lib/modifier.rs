@@ -28,7 +28,7 @@ impl error::Error for ModifierError {
         None
     }
 }
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub(crate) struct Modifier {
     value: u8,
     operator: lib::operator::Operator,
@@ -39,11 +39,19 @@ impl Modifier {
         Self { value, operator }
     }
     pub(crate) fn apply_to_value(&self, v: u8) -> u8 {
-        match self.operator {
-            lib::operator::Operator::Plus => util::uint8::add_without_overflow(v, self.value),
-            lib::operator::Operator::Minus => util::uint8::subtract_without_overflow(v, self.value),
+        match self.operator() {
+            lib::operator::Operator::Plus => util::uint8::add_without_overflow(v, self.value()),
+            lib::operator::Operator::Minus => {
+                util::uint8::subtract_without_overflow(v, self.value())
+            }
             lib::operator::Operator::NoP => v,
         }
+    }
+    pub(crate) fn value(&self) -> u8 {
+        self.value
+    }
+    pub(crate) fn operator(&self) -> lib::operator::Operator {
+        self.operator
     }
 }
 

@@ -6,6 +6,7 @@
   "commands.roll.i-rolled": "I rolled ",
   "commands.roll.i-rolled-a": "I rolled a ",
   "commands.roll.for-you": " for you: ",
+  "commands.roll.die_emoji": ":game_die:",
   "commands.character.you-are-dm": "You are the Dungeon Master.",
   "commands.character.you-are-playing-as": "You are playing as ",
   "commands.character.you-are-not-playing-as-anyone": "Sorry, you are not playing as anyone.\nYou can use the JSON Character editor to create you character and send it to the DSA Bot Host to start playing.\nDownload: https://github.com/gruenwaldlk/dsa_bot/releases",
@@ -35,5 +36,6 @@
   "dsa.character.is-attribute-check-failed-but-compensated.00": " points used for compensation, ",
   "dsa.character.is-attribute-check-failed-but-compensated.01": " points left.",
   "dsa.character.is-attribute-check-failed-not-compensated.00": " points left, but ",
-  "dsa.character.is-attribute-check-failed-not-compensated.01": " required."
+  "dsa.character.is-attribute-check-failed-not-compensated.01": " required.",
+  "lib.dice.display": "d"
 }

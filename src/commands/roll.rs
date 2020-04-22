@@ -44,7 +44,8 @@ fn roll_dice(args: &str) -> String {
         let mut vec: Vec<u8> = Vec::new();
         dice.roll_n_times(dice_count, &mut vec);
         format!(
-            "{}{} {}{}{:?}",
+            "{} {}{} {}{}{:?}",
+            util::localisation::get_text("commands.roll.die_emoji"),
             util::localisation::get_text("commands.roll.i-rolled"),
             dice_count,
             dice,
@@ -53,7 +54,8 @@ fn roll_dice(args: &str) -> String {
         )
     } else {
         format!(
-            "{}{}{}{}",
+            "{} {}{}{}{}",
+            util::localisation::get_text("commands.roll.die_emoji"),
             util::localisation::get_text("commands.roll.i-rolled-a"),
             dice,
             util::localisation::get_text("commands.roll.for-you"),
