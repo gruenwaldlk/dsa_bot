@@ -215,22 +215,3 @@ fn err_invalid_dice(dice_type: u8) -> String {
         dice_type
     )
 }
-
-mod test {
-    use super::*;
-    #[test]
-    fn test_roll_dice_sum_mod() {
-        let s = roll_dice_sum_mod("1w6");
-        println!("Rolled {}", s);
-        let s = roll_dice_sum_mod("2w6");
-        println!("Rolled {}", s);
-        let s = roll_dice_sum_mod("3w6");
-        println!("Rolled {}", s);
-        let s = roll_dice_sum_mod("1w6+1");
-        println!("Rolled {}", s);
-        let s = roll_dice_sum_mod("2w6+2");
-        println!("Rolled {}", s);
-        let s = roll_dice_sum_mod("3w6+3");
-        println!("Rolled {}", s);
-    }
-}
