@@ -110,6 +110,7 @@ impl fmt::Display for Modifier {
     }
 }
 
+#[cfg(test)]
 mod test {
     use super::*;
     #[test]

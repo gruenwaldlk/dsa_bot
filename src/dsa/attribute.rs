@@ -1,13 +1,21 @@
 use serde::Deserialize;
 use serde::Serialize;
 
+#[allow(dead_code)]
 pub(crate) const ATTRIBUTE_ID_MU: &str = "MU";
+#[allow(dead_code)]
 pub(crate) const ATTRIBUTE_ID_KL: &str = "KL";
+#[allow(dead_code)]
 pub(crate) const ATTRIBUTE_ID_IN: &str = "IN";
+#[allow(dead_code)]
 pub(crate) const ATTRIBUTE_ID_CH: &str = "CH";
+#[allow(dead_code)]
 pub(crate) const ATTRIBUTE_ID_FF: &str = "FF";
+#[allow(dead_code)]
 pub(crate) const ATTRIBUTE_ID_GE: &str = "GE";
+#[allow(dead_code)]
 pub(crate) const ATTRIBUTE_ID_KO: &str = "KO";
+#[allow(dead_code)]
 pub(crate) const ATTRIBUTE_ID_KK: &str = "KK";
 
 #[derive(Serialize, Deserialize, Debug, Default)]

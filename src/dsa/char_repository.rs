@@ -54,6 +54,7 @@ impl CharRepository {
             }
         }
     }
+    #[allow(dead_code)]
     pub(crate) fn get_char_by_name_and_player_id(
         &self,
         character_name: &str,

@@ -18,6 +18,7 @@ impl Dice {
             mod_op: lib::operator::Operator::NoP,
         }
     }
+    #[allow(dead_code)]
     pub(crate) fn with_mod(&self, mod_value: u8, mod_op: lib::operator::Operator) -> Self {
         Dice {
             sides: self.sides,
