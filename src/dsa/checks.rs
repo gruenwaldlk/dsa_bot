@@ -1,11 +1,11 @@
-use crate::dsa::ResultType;
+use crate::dsa::result::ResultType;
 use std::fmt::Debug;
 use std::fmt::Display;
 
 pub(crate) mod talent {
 
   use crate::dsa::checks::CheckResult;
-  use crate::dsa::ResultType;
+  use crate::dsa::result::ResultType;
   use std::fmt::*;
 
   #[derive(Debug, Default)]

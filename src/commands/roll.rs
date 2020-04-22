@@ -1,8 +1,5 @@
-use crate::lib::add_without_overflow;
-use crate::lib::dice::Dice;
-use crate::lib::subtract_without_overflow;
-use crate::lib::Operator;
-use crate::util::localisation::get_text;
+use crate::lib;
+use crate::util;
 use log::debug;
 use log::error;
 use log::info;
@@ -42,24 +39,24 @@ fn roll_dice(args: &str) -> String {
     if dice_type < 2 {
         return err_invalid_dice(dice_type);
     }
-    let dice = Dice::new(dice_type);
+    let dice = lib::dice::Dice::new(dice_type);
     if dice_count > 1 {
         let mut vec: Vec<u8> = Vec::new();
         dice.roll_n_times(dice_count, &mut vec);
         format!(
             "{}{} {}{}{:?}",
-            get_text("commands.roll.i-rolled"),
+            util::localisation::get_text("commands.roll.i-rolled"),
             dice_count,
             dice,
-            get_text("commands.roll.for-you"),
+            util::localisation::get_text("commands.roll.for-you"),
             vec
         )
     } else {
         format!(
             "{}{}{}{}",
-            get_text("commands.roll.i-rolled-a"),
+            util::localisation::get_text("commands.roll.i-rolled-a"),
             dice,
-            get_text("commands.roll.for-you"),
+            util::localisation::get_text("commands.roll.for-you"),
             dice.roll()
         )
     }
@@ -106,25 +103,25 @@ fn roll_dice_sum_no_mod(args: &str) -> String {
     }
     let mut result = 0;
     let mut v: Vec<u8> = Vec::new();
-    Dice::new(dice_type).roll_n_times(dice_count, &mut v);
+    lib::dice::Dice::new(dice_type).roll_n_times(dice_count, &mut v);
     for x in v.iter() {
-        result = add_without_overflow(result, *x);
+        result = util::uint8::add_without_overflow(result, *x);
     }
     if dice_count > 1 {
         format!(
             "{}{} {}{}{:?}",
-            get_text("commands.roll.i-rolled"),
+            util::localisation::get_text("commands.roll.i-rolled"),
             dice_count,
-            Dice::new(dice_type),
-            get_text("commands.roll.for-you"),
+            lib::dice::Dice::new(dice_type),
+            util::localisation::get_text("commands.roll.for-you"),
             result
         )
     } else {
         format!(
             "{}{}{}{}",
-            get_text("commands.roll.i-rolled-a"),
-            Dice::new(dice_type),
-            get_text("commands.roll.for-you"),
+            util::localisation::get_text("commands.roll.i-rolled-a"),
+            lib::dice::Dice::new(dice_type),
+            util::localisation::get_text("commands.roll.for-you"),
             result
         )
     }
@@ -134,15 +131,15 @@ fn roll_dice_sum_mod(args: &str) -> String {
     let mut modifier = 0;
     let mut dice_type = 6;
     let mut dice_count = 1;
-    let mut op = Operator::Plus;
+    let mut op = lib::operator::Operator::Plus;
 
     for cap in crate::BASIC_DICE_REGEX_WITH_MOD.captures_iter(args) {
         dice_count = u8::from_str(&cap[1]).unwrap_or(1);
         dice_type = u8::from_str(&cap[3]).unwrap_or(6);
         if &cap[4] == "+" {
-            op = Operator::Plus;
+            op = lib::operator::Operator::Plus;
         } else {
-            op = Operator::Minus;
+            op = lib::operator::Operator::Minus;
         }
         modifier = u8::from_str(&cap[5]).unwrap_or(0);
     }
@@ -155,46 +152,50 @@ fn roll_dice_sum_mod(args: &str) -> String {
     info!("Rolling {}w{}{:?}{}.", dice_count, dice_type, op, modifier);
     let mut result = 0;
     let mut v: Vec<u8> = Vec::new();
-    Dice::new(dice_type).roll_n_times(dice_count, &mut v);
+    lib::dice::Dice::new(dice_type).roll_n_times(dice_count, &mut v);
     for x in v.iter() {
-        result = add_without_overflow(result, *x);
+        result = util::uint8::add_without_overflow(result, *x);
     }
-    if op == Operator::Plus {
-        result = add_without_overflow(result, modifier);
+    if op == lib::operator::Operator::Plus {
+        result = util::uint8::add_without_overflow(result, modifier);
     } else {
-        result = subtract_without_overflow(result, modifier);
+        result = util::uint8::subtract_without_overflow(result, modifier);
     }
     if dice_count > 1 {
         format!(
             "{}{}{}{}{}{}",
-            get_text("commands.roll.i-rolled"),
+            util::localisation::get_text("commands.roll.i-rolled"),
             dice_count,
-            Dice::new(dice_type),
+            lib::dice::Dice::new(dice_type),
             with_mod(op, modifier),
-            get_text("commands.roll.for-you"),
+            util::localisation::get_text("commands.roll.for-you"),
             result
         )
     } else {
         format!(
             "{}{}{}{}{}",
-            get_text("commands.roll.i-rolled-a"),
-            Dice::new(dice_type),
+            util::localisation::get_text("commands.roll.i-rolled-a"),
+            lib::dice::Dice::new(dice_type),
             with_mod(op, modifier),
-            get_text("commands.roll.for-you"),
+            util::localisation::get_text("commands.roll.for-you"),
             result
         )
     }
 }
 
-fn with_mod(op: Operator, modifier: u8) -> String {
-    let operator = if op == Operator::Plus { "+" } else { "-" };
+fn with_mod(op: lib::operator::Operator, modifier: u8) -> String {
+    let operator = if op == lib::operator::Operator::Plus {
+        "+"
+    } else {
+        "-"
+    };
     format!("{}{}", operator, modifier)
 }
 
 fn err_invalid_dice_pattern(args: &str) -> String {
     format!(
         "{} {:?}",
-        get_text("commands.roll.err.invalid-dice-pattern"),
+        util::localisation::get_text("commands.roll.err.invalid-dice-pattern"),
         args
     )
 }
@@ -202,7 +203,7 @@ fn err_invalid_dice_pattern(args: &str) -> String {
 fn err_invalid_dice_count(dice_count: u8) -> String {
     format!(
         "{}{}",
-        get_text("commands.roll.err.invalid-dice-count"),
+        util::localisation::get_text("commands.roll.err.invalid-dice-count"),
         dice_count
     )
 }
@@ -210,7 +211,7 @@ fn err_invalid_dice_count(dice_count: u8) -> String {
 fn err_invalid_dice(dice_type: u8) -> String {
     format!(
         "{}d{}",
-        get_text("commands.roll.err.invalid-dice"),
+        util::localisation::get_text("commands.roll.err.invalid-dice"),
         dice_type
     )
 }

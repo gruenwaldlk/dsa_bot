@@ -20,7 +20,5 @@ pub(crate) fn get_text(key: &str) -> String {
 }
 
 pub(crate) fn curr_lang() -> String {
-  let current_language = env::var("CURRENT_LANGUAGE").expect("Expected a token in the environment");
-  debug!("Current language: {}", current_language);
-  current_language
+  env::var("CURRENT_LANGUAGE").expect("Expected a token in the environment")
 }

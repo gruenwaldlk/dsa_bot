@@ -74,12 +74,3 @@ impl CharRepository {
         format!("{}-{}", character_name, player_id)
     }
 }
-
-mod test {
-    use super::*;
-    #[test]
-    fn test_from_file() {
-        let r = CharRepository::new_from_file(".chars");
-        assert!(r.get_char_by_player_id(479_279_107_083_993_088).is_some());
-    }
-}

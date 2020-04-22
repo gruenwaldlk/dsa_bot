@@ -1,5 +1,5 @@
 use crate::commands::util;
-use crate::lib::Operator;
+use crate::lib;
 use crate::util::localisation::get_text;
 use log::error;
 use serenity::framework::standard::macros::command;
@@ -127,7 +127,7 @@ fn get_ini(ctx: &mut Context, msg: &Message) -> CommandResult {
 struct TalentCheck {
   pub(self) talent_id: String,
   pub(self) mod_value: u8,
-  pub(self) mod_op: Operator,
+  pub(self) mod_op: lib::operator::Operator,
 }
 
 impl TalentCheck {
@@ -137,7 +137,7 @@ impl TalentCheck {
   fn mod_value(&self) -> u8 {
     self.mod_value
   }
-  fn mod_op(&self) -> Operator {
+  fn mod_op(&self) -> lib::operator::Operator {
     self.mod_op
   }
   fn from_str(s: &str) -> Option<Self> {
@@ -145,21 +145,21 @@ impl TalentCheck {
       Some(TalentCheck {
         talent_id: String::from(s),
         mod_value: 0,
-        mod_op: Operator::NoP,
+        mod_op: lib::operator::Operator::NoP,
       })
     } else if crate::BASIC_TALENT_ROLL_REGEX_WITH_MOD.is_match(s) {
       let mut id = String::from("NONE");
-      let mut op = Operator::NoP;
+      let mut op = lib::operator::Operator::NoP;
       let mut val = 0;
       for cap in crate::BASIC_TALENT_ROLL_REGEX_WITH_MOD.captures_iter(s) {
         id = String::from(&cap[1]);
         val = u8::from_str(&cap[3]).unwrap_or(0);
         if &cap[2] == "+" {
-          op = Operator::Plus;
+          op = lib::operator::Operator::Plus;
         } else if &cap[2] == "-" {
-          op = Operator::Minus;
+          op = lib::operator::Operator::Minus;
         } else {
-          op = Operator::NoP;
+          op = lib::operator::Operator::NoP;
         }
       }
       Some(TalentCheck {
