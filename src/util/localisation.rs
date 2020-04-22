@@ -1,6 +1,5 @@
 use crate::CTX;
 use json_gettext::JSONGetTextValue;
-use log::debug;
 use log::error;
 use std::env;
 

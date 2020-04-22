@@ -7,7 +7,7 @@ use std::str::FromStr;
 
 lazy_static! {
     static ref MOD_PATTERN_REGEX: Regex =
-        Regex::new(r"^(.*)(\+|-\d+)(.*)$").expect("The regex could not be parsed.");
+        Regex::new(r"^(.*)(\+|-)(\d+)(.*)$").expect("The regex could not be parsed.");
     static ref MOD_PLUS_REGEX: Regex =
         Regex::new(r"^(\+)(\d+)$").expect("The regex could not be parsed.");
     static ref MOD_MINUS_REGEX: Regex =
@@ -55,27 +55,28 @@ impl FromStr for Modifier {
             let mut modifier = String::new();
             for cap in MOD_PATTERN_REGEX.captures_iter(&pattern) {
                 modifier = String::from(&cap[2]);
+                modifier.push_str(&cap[3]);
             }
+            modifier = util::input::remove_whitespace(&modifier);
             if MOD_PLUS_REGEX.is_match(&modifier) {
-                let mut value = 0;
-                for cap in MOD_PLUS_REGEX.captures_iter(&modifier) {
-                    value = u8::from_str(&cap[2]).unwrap_or(0);
+                let mut v_plus: u8 = 0;
+                for c in MOD_PATTERN_REGEX.captures_iter(&modifier) {
+                    v_plus = u8::from_str(&c[3]).unwrap_or(0);
                 }
-                if value != 0 {
+                if v_plus != 0 {
                     return Ok(lib::modifier::Modifier::new(
-                        value,
+                        v_plus,
                         lib::operator::Operator::Plus,
                     ));
                 }
-            }
-            if MOD_MINUS_REGEX.is_match(&modifier) {
-                let mut value = 0;
-                for cap in MOD_MINUS_REGEX.captures_iter(&modifier) {
-                    value = u8::from_str(&cap[2]).unwrap_or(0);
+            } else if MOD_MINUS_REGEX.is_match(&modifier) {
+                let mut v_minus = 0;
+                for c in MOD_PATTERN_REGEX.captures_iter(&modifier) {
+                    v_minus = u8::from_str(&c[3]).unwrap_or(0);
                 }
-                if value != 0 {
+                if v_minus != 0 {
                     return Ok(lib::modifier::Modifier::new(
-                        value,
+                        v_minus,
                         lib::operator::Operator::Minus,
                     ));
                 }
@@ -106,5 +107,65 @@ impl fmt::Display for Modifier {
         } else {
             write!(f, "({}{})", op, self.value)
         }
+    }
+}
+
+mod test {
+    use super::*;
+    #[test]
+    fn test_from_str_plus9() {
+        let mod_actual = Modifier::from_str("3w4+9").unwrap();
+        let mod_expected = Modifier::new(9, lib::operator::Operator::Plus);
+        assert_eq!(mod_expected.value, mod_actual.value);
+        assert_eq!(mod_expected.operator, mod_actual.operator);
+    }
+    #[test]
+    fn test_from_str_minus9() {
+        let mod_actual = Modifier::from_str("3w4-9").unwrap();
+        let mod_expected = Modifier::new(9, lib::operator::Operator::Minus);
+        assert_eq!(mod_expected.value, mod_actual.value);
+        assert_eq!(mod_expected.operator, mod_actual.operator);
+    }
+    #[test]
+    fn test_from_str_nop() {
+        let mod_actual = Modifier::from_str("3w4+0").unwrap();
+        let mod_expected = Modifier::new(0, lib::operator::Operator::NoP);
+        assert_eq!(mod_expected.value, mod_actual.value);
+        assert_eq!(mod_expected.operator, mod_actual.operator);
+    }
+    #[test]
+    fn test_from_str_no_mod() {
+        let mod_actual = Modifier::from_str("3w4").unwrap();
+        let mod_expected = Modifier::new(0, lib::operator::Operator::NoP);
+        assert_eq!(mod_expected.value, mod_actual.value);
+        assert_eq!(mod_expected.operator, mod_actual.operator);
+    }
+    #[test]
+    fn test_from_str_plus9_with_whitespace() {
+        let mod_actual = Modifier::from_str("3w4 +9").unwrap();
+        let mod_expected = Modifier::new(9, lib::operator::Operator::Plus);
+        assert_eq!(mod_expected.value, mod_actual.value);
+        assert_eq!(mod_expected.operator, mod_actual.operator);
+    }
+    #[test]
+    fn test_from_str_minus9_with_whitespace() {
+        let mod_actual = Modifier::from_str("3w4 -9\n").unwrap();
+        let mod_expected = Modifier::new(9, lib::operator::Operator::Minus);
+        assert_eq!(mod_expected.value, mod_actual.value);
+        assert_eq!(mod_expected.operator, mod_actual.operator);
+    }
+    #[test]
+    fn test_from_str_nop_with_whitespace() {
+        let mod_actual = Modifier::from_str(" 3w4\t+0  ").unwrap();
+        let mod_expected = Modifier::new(0, lib::operator::Operator::NoP);
+        assert_eq!(mod_expected.value, mod_actual.value);
+        assert_eq!(mod_expected.operator, mod_actual.operator);
+    }
+    #[test]
+    fn test_from_str_no_mod_with_whitespace() {
+        let mod_actual = Modifier::from_str(" 3w4\t").unwrap();
+        let mod_expected = Modifier::new(0, lib::operator::Operator::NoP);
+        assert_eq!(mod_expected.value, mod_actual.value);
+        assert_eq!(mod_expected.operator, mod_actual.operator);
     }
 }
