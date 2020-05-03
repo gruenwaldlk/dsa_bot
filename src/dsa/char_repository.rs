@@ -22,8 +22,10 @@ impl CharRepository {
                 let mut file = File::open(&path).unwrap();
                 let mut contents = String::new();
                 file.read_to_string(&mut contents).unwrap();
-                let c: Character = serde_json::from_str(&contents).unwrap();
-                r.add_char(c);
+                match serde_json::from_str::<Character>(&contents) {
+                    Ok(c) => r.add_char(c),
+                    Err(e) => error!("Could not parse character at {:?} - {}", path, e),
+                };
             }
         }
         r

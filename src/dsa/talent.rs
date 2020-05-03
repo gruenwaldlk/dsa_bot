@@ -1,3 +1,6 @@
+use log::error;
+use log::info;
+use log::warn;
 use serde::Deserialize;
 use serde::Serialize;
 use std::fmt::*;
@@ -87,7 +90,18 @@ impl Talent {
     pub(crate) fn value(&self) -> u8 {
         self.value
     }
-
+    pub(crate) fn get_quality_level(talent_points_left: u8) -> u8 {
+        let q = match talent_points_left {
+            0..=3 => 1,
+            4..=6 => 2,
+            7..=9 => 3,
+            10..=12 => 4,
+            13..=15 => 5,
+            _ => 6,
+        };
+        info!("get_quality({})->{}", talent_points_left, q);
+        q
+    }
     pub(crate) fn default_talent_alchimie() -> Self {
         Self {
             attribute_1_id: String::from("MU"),
@@ -620,8 +634,11 @@ impl Talent {
         }
     }
     pub(crate) fn get_default_by_id(id: &str) -> Option<Self> {
-        let idu = id.to_uppercase();
-        match idu.as_str() {
+        info!(
+            "Attempting to get default talent for ID \"{}\"",
+            Talent::clean_talent_id(id)
+        );
+        match Talent::clean_talent_id(id) {
             TALENT_ID_ALCHIMIE => Some(Self::default_talent_alchimie()),
             TALENT_ID_BEKEHREN_UEBERZEUGEN => Some(Self::default_talent_bekehren_ueberzeugen()),
             TALENT_ID_BETOEREN => Some(Self::default_talent_betoeren()),
@@ -683,10 +700,14 @@ impl Talent {
             TALENT_ID_WILDNISLEBEN => Some(Self::default_talent_wildnisleben()),
             TALENT_ID_WILLENSKRAFT => Some(Self::default_talent_willenskraft()),
             TALENT_ID_ZECHEN => Some(Self::default_talent_zechen()),
-            _ => None,
+            _invalid => {
+                error!("Requested invalid talent ID \"{}\"", _invalid);
+                None
+            }
         }
     }
     pub(crate) fn clean_talent_id(id: &str) -> &str {
+        info!("Cleaning id \"{}\"", id);
         match id {
             "Fliegen" | "fliegen" | "FLIEGEN" => TALENT_ID_FLIEGEN,
             "Gaukelei" | "gaukelei" | "GAUKELEI" => TALENT_ID_GAUKELEI,
@@ -776,12 +797,19 @@ impl Talent {
             "Boote" | "boote" | "BOOTE" => TALENT_ID_BOOTE,
             "Fahrzeuge" | "fahrzeuge" | "FAHRZEUGE" => TALENT_ID_FAHRZEUGE,
             "Handel" | "handel" | "HANDEL" => TALENT_ID_HANDEL,
-            "HeilkundeGift" | "heilkundegift" | "HEILKUNDEGIFT" => TALENT_ID_HEILKUNDE_GIFT,
-            "HeilkundeKrankheiten" | "heilkundekrankheiten" | "HEILKUNDEKRANKHEITEN" => {
-                TALENT_ID_HEILKUNDE_KRANKHEITEN
+            "HeilkundeGift" | "heilkundegift" | "HEILKUNDEGIFT" | "gift" | "Gift" | "GIFT" => {
+                TALENT_ID_HEILKUNDE_GIFT
             }
-            "HeilkundeSeele" | "heilkundeseele" | "HEILKUNDESEELE" => TALENT_ID_HEILKUNDE_SEELE,
-            "HeilkundeWunden" | "heilkundewunden" | "HEILKUNDEWUNDEN" => TALENT_ID_HEILKUNDE_WUNDEN,
+            "HeilkundeKrankheiten"
+            | "heilkundekrankheiten"
+            | "HEILKUNDEKRANKHEITEN"
+            | "Krankheiten"
+            | "krankheiten"
+            | "KRANKHEITEN" => TALENT_ID_HEILKUNDE_KRANKHEITEN,
+            "HeilkundeSeele" | "heilkundeseele" | "HEILKUNDESEELE" | "Seele" | "seele"
+            | "SEELE" => TALENT_ID_HEILKUNDE_SEELE,
+            "HeilkundeWunden" | "heilkundewunden" | "HEILKUNDEWUNDEN" | "Wunden" | "wunden"
+            | "WUNDEN" | "Wunde" | "wunde" | "WUNDE" => TALENT_ID_HEILKUNDE_WUNDEN,
             "Holzbearbeitung" | "holzbearbeitung" | "HOLZBEARBEITUNG" => TALENT_ID_HOLZBEARBEITUNG,
             "Lebensmittelbearbeitung" | "lebensmittelbearbeitung" | "LEBENSMITTELBEARBEITUNG" => {
                 TALENT_ID_LEBENSMITTELBEARBEITUNG
@@ -805,7 +833,10 @@ impl Talent {
             "Stoffbearbeitung" | "stoffbearbeitung" | "STOFFBEARBEITUNG" => {
                 TALENT_ID_STOFFBEARBEITUNG
             }
-            _ => "ERROR",
+            _invalid => {
+                warn!("Match string not recognized: \"{}\"", _invalid);
+                "ERROR"
+            }
         }
     }
 }

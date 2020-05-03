@@ -7,7 +7,6 @@ use crate::dsa::result;
 use crate::dsa::talent;
 use crate::lib;
 use crate::util;
-use log::info;
 use log::warn;
 use serde::Deserialize;
 use serde::Serialize;
@@ -35,10 +34,9 @@ impl Character {
         self.attributes.get(idu.as_str())
     }
     pub(crate) fn get_talent_by_id(&self, id: &str) -> Option<&talent::Talent> {
-        let id_clean = talent::Talent::clean_talent_id(id);
-        match id_clean {
+        match talent::Talent::clean_talent_id(id) {
             "ERROR" => None,
-            _ => self.talents.get(id),
+            _id => self.talents.get(_id),
         }
     }
     pub(crate) fn ini(&self) -> initiative::Ini {
@@ -61,15 +59,14 @@ impl Character {
         mod_value: u8,
         mod_op: lib::operator::Operator,
     ) -> String {
-        let talent_id = talent::Talent::clean_talent_id(id);
-        let default_talent = match talent::Talent::get_default_by_id(talent_id) {
+        let default_talent = match talent::Talent::get_default_by_id(id) {
             Some(t) => t,
             _ => {
                 warn!("The talent with id \"{}\" could not be matched.", id);
                 return format!("The talent \"{}\" does not exist.", id);
             }
         };
-        let talent = match self.get_talent_by_id(talent_id) {
+        let talent = match self.get_talent_by_id(id) {
             Some(tal) => tal,
             _ => &default_talent,
         };
@@ -140,7 +137,7 @@ impl Character {
         } else {
             util::localisation::get_text("dsa.character.success-unknown")
         };
-        let mut q = get_quality(current_talent_val);
+        let mut q = talent::Talent::get_quality_level(current_talent_val);
         if is_critical_success {
             if r1.is_critical_success() {
                 q = util::uint8::add_without_overflow(q, r1.crit_count());
@@ -177,21 +174,6 @@ impl Character {
                 r3
             )
         }
-    }
-}
-
-fn get_quality(talent_left: u8) -> u8 {
-    let q = talent_left / 3;
-    info!(
-        "Checking quality level: {} -> quality indicator {}",
-        talent_left, q
-    );
-    if q == 0 {
-        1
-    } else if q >= 6 {
-        6
-    } else {
-        q
     }
 }
 

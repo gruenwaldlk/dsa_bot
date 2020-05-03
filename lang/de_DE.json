@@ -29,7 +29,7 @@
   "dsa.character.is-attribute-check-critical-failure-emoji": ":skull:",
   "dsa.character.is-attribute-check-critical-success-check-failed": " Bestätigungswurf fehlgeschlagen.",
   "dsa.character.is-attribute-check-critical-success-check-success": " Bestätigungswurf erfolgreich.",
-  "dsa.character.is-attribute-check-critical-success-check-success-n-times": " erfolgreiche Bestätigungswürfe!",
+  "dsa.character.is-attribute-check-critical-success-check-success-n-times": " erfolgreiche Bestätigungswürfe, Du hast mehrere kritische Erfolge erziehlt!",
   "dsa.character.is-attribute-check-critical-failure-check-success": " Patzer abgewendet - Bestätigungswurf erfolgreich.",
   "dsa.character.is-attribute-check-critical-failure-check-failure": " Patzer - Bestätigungswurf fehlgeschlagen.",
   "dsa.character.is-attribute-check-critical-failure-check-failure-n-times": "-fach-Patzer - Bestätigungswurf mehrfach fehlgeschlagen.",
