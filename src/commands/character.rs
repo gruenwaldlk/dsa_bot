@@ -103,6 +103,16 @@ fn talent_roll(ctx: &mut Context, msg: &Message, args: Args) -> CommandResult {
 #[command]
 #[aliases("ini")]
 fn get_ini(ctx: &mut Context, msg: &Message) -> CommandResult {
+    let is_dm = match &msg.member {
+        Some(pm) => util::is_dm(pm),
+        _ => false,
+    };
+    if is_dm {
+        if let Err(why) = msg.reply(&ctx.http, get_text("commands.character.you-are-dm")) {
+            error!("Error sending message: {:?}", why);
+        }
+        return Ok(());
+    }
     let c = match crate::CHARACTER_REPOSITORY.get_char_by_player_id(*msg.author.id.as_u64()) {
         Some(c) => c,
         None => {

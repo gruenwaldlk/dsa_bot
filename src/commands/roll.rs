@@ -1,3 +1,4 @@
+use crate::commands::util as cutil;
 use crate::lib;
 use crate::util;
 use log::debug;
@@ -14,10 +15,20 @@ use std::str::FromStr;
 #[command]
 #[aliases("roll", "r")]
 fn roll(ctx: &mut Context, msg: &Message, args: Args) -> CommandResult {
+    let is_dm = match &msg.member {
+        Some(pm) => cutil::is_dm(pm),
+        _ => false,
+    };
     let result = roll_dice(args.current().unwrap_or(""));
-    debug!("Generated Discord message (@{}): {}", msg.author, result);
-    if let Err(why) = msg.reply(&ctx.http, result) {
-        error!("Error sending message: {:?}", why);
+    if is_dm {
+        if let Err(why) = msg.author.direct_message(&ctx, |m| m.content(&result)) {
+            error!("Error sending message: {:?}", why);
+        }
+    } else {
+        debug!("Generated Discord message (@{}): {}", msg.author, result);
+        if let Err(why) = msg.reply(&ctx.http, result) {
+            error!("Error sending message: {:?}", why);
+        }
     }
     Ok(())
 }
@@ -67,10 +78,20 @@ fn roll_dice(args: &str) -> String {
 #[command]
 #[aliases("rsm", "rsmod", "rsummod", "roll_sum", "rs", "rsum")]
 fn roll_sum_mod(ctx: &mut Context, msg: &Message, args: Args) -> CommandResult {
+    let is_dm = match &msg.member {
+        Some(pm) => cutil::is_dm(pm),
+        _ => false,
+    };
     let result = roll_dice_sum(args.current().unwrap_or(""));
-    debug!("Generated Discord message (@{}): {}", msg.author, result);
-    if let Err(why) = msg.reply(&ctx.http, result) {
-        error!("Error sending message: {:?}", why);
+    if is_dm {
+        if let Err(why) = msg.author.direct_message(&ctx, |m| m.content(&result)) {
+            error!("Error sending message: {:?}", why);
+        }
+    } else {
+        debug!("Generated Discord message (@{}): {}", msg.author, result);
+        if let Err(why) = msg.reply(&ctx.http, result) {
+            error!("Error sending message: {:?}", why);
+        }
     }
     Ok(())
 }
@@ -111,7 +132,8 @@ fn roll_dice_sum_no_mod(args: &str) -> String {
     }
     if dice_count > 1 {
         format!(
-            "{}{} {}{}{:?}",
+            "{} {}{} {}{}{:?}",
+            util::localisation::get_text("commands.roll.die_emoji"),
             util::localisation::get_text("commands.roll.i-rolled"),
             dice_count,
             lib::dice::Dice::new(dice_type),
@@ -120,7 +142,8 @@ fn roll_dice_sum_no_mod(args: &str) -> String {
         )
     } else {
         format!(
-            "{}{}{}{}",
+            "{} {}{}{}{}",
+            util::localisation::get_text("commands.roll.die_emoji"),
             util::localisation::get_text("commands.roll.i-rolled-a"),
             lib::dice::Dice::new(dice_type),
             util::localisation::get_text("commands.roll.for-you"),

@@ -53,6 +53,7 @@ impl Dice {
     pub(crate) fn roll(&self) -> u8 {
         thread_rng().gen_range(0, self.sides) + 1
     }
+    #[allow(dead_code)]
     pub(crate) fn roll_with_mod(&self) -> u8 {
         self.modifier.apply_to_value(self.roll())
     }
@@ -61,6 +62,7 @@ impl Dice {
             vec.push(self.roll());
         }
     }
+    #[allow(dead_code)]
     pub(crate) fn roll_n_times_with_mod_per_dice(&self, n: u8, vec: &mut Vec<u8>) {
         for _ in 0..n {
             vec.push(self.roll_with_mod());
